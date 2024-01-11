@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #viewContent {
+            padding-left: 20px;
+        }
+
+        #viewContent select, #viewContent button {
+            font-size: 25px;
+        }
+
+        #viewContent h4 {
+            margin: 10px 0;
+        }
+
+        #viewContent .textAlignCenter {
+            text-align: center;
+        }
+
+        #viewContent .textAlignCenter img {
+            display: none;
+            width: 100px;
+        }
+
+        #viewContent #message table {
+            width: 100%;
+        }
+
+        #viewContent #message table th {
+            text-align: left;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        let data = [];
+        function callApi() {
+            <!-- meilleur film -->
+            fetch('http://localhost:8000/api/v1/titles?page_size=1&sort_by=-imdb_score')
+                .then(response => {
+                    // Vérifier si la requête a réussi (statut 200 OK)
+                    if (!response.ok) {
+                        throw new Error('La requête a échoué');
+                    }
+                    // Parse la réponse en JSON
+                    return response.json();
+                })
+                .then(result => {
+                    // Traiter les données
+                    console.log(result);
+
+                    var temp = "";
+          result.results.forEach((itemData) => {
+
+            temp +="<div class=img>";
+            temp += "<td><img src=' " + itemData.image_url + "'></td>";
+            temp +"</div>";
+          });
+          document.getElementById('data').innerHTML = temp;
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+            <!-- requette 7 meilleurs -->
+            fetch('http://localhost:8000/api/v1/titles?page_size=7&sort_by=-imdb_score')
+                .then(response => {
+                    // Vérifier si la requête a réussi (statut 200 OK)
+                    if (!response.ok) {
+                        throw new Error('La requête a échoué');
+                    }
+                    // Parse la réponse en JSON
+                    return response.json();
+                })
+                .then(result => {
+                    // Traiter les données
+                    console.log(result);
+
+                    var temp = "";
+          result.results.forEach((itemData) => {
+
+            temp +="<div class=img>";
+            temp += "<td><img src=' " + itemData.image_url + "'></td>";
+            temp +"</div>";
+          });
+          document.getElementById('data1').innerHTML = temp;
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+         <!-- requette category musical -->
+            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=Musical&sort_by=-imdb_score')
+                .then(response => {
+                    // Vérifier si la requête a réussi (statut 200 OK)
+                    if (!response.ok) {
+                        throw new Error('La requête a échoué');
+                    }
+                    // Parse la réponse en JSON
+                    return response.json();
+                })
+                .then(result => {
+                    // Traiter les données
+                    console.log(result);
+
+                    var temp = "";
+          result.results.forEach((itemData) => {
+
+            temp +="<div class=img>";
+            temp += "<td><img src=' " + itemData.image_url + "'></td>";
+            temp +"</div>";
+          });
+          document.getElementById('data2').innerHTML = temp;
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+
+          <!-- requette category comedy -->
+            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=comedy&sort_by=-imdb_score')
+                .then(response => {
+                    // Vérifier si la requête a réussi (statut 200 OK)
+                    if (!response.ok) {
+                        throw new Error('La requête a échoué');
+                    }
+                    // Parse la réponse en JSON
+                    return response.json();
+                })
+                .then(result => {
+                    // Traiter les données
+                    console.log(result);
+
+                    var temp = "";
+          result.results.forEach((itemData) => {
+
+            temp +="<div class=img>";
+            temp += "<td><img src=' " + itemData.image_url + "'></td>";
+            temp +"</div>";
+          });
+          document.getElementById('data3').innerHTML = temp;
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+
+           <!-- requette category drama -->
+            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=drama&sort_by=-imdb_score')
+                .then(response => {
+                    // Vérifier si la requête a réussi (statut 200 OK)
+                    if (!response.ok) {
+                        throw new Error('La requête a échoué');
+                    }
+                    // Parse la réponse en JSON
+                    return response.json();
+                })
+                .then(result => {
+                    // Traiter les données
+                    console.log(result);
+
+                    var temp = "";
+          result.results.forEach((itemData) => {
+
+            temp +="<div class=img>";
+            temp += "<td><img src=' " + itemData.image_url + "'></td>";
+            temp +"</div>";
+          });
+          document.getElementById('data4').innerHTML = temp;
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+
+        }
+
+    </script>
+</head>
+<body onload="callApi()">
+
+<div class="container">
+  <table class="table">
+
+    <tbody id="data">
+
+    </tbody>
+  </table>
+     <table class="table1">
+
+    <tbody id="data1">
+
+    </tbody>
+  </table>
+    </table>
+     <table class="table2">
+
+    <tbody id="data2">
+
+    </tbody>
+  </table>
+    <table class="table3">
+
+    <tbody id="data3">
+
+    </tbody>
+  </table>
+     <table class="table4">
+
+    <tbody id="data4">
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
