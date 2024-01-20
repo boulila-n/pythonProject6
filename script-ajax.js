@@ -1,144 +1,156 @@
+var best = null;
+
 function callApi() {
-            <!-- meilleur film -->
-            fetch('http://localhost:8000/api/v1/titles?page_size=1&sort_by=-imdb_score')
-                .then(response => {
-                    // Vérifier si la requête a réussi (statut 200 OK)
-                    if (!response.ok) {
-                        throw new Error('La requête a échoué');
-                    }
-                    // Parse la réponse en JSON
-                    return response.json();
-                })
-                .then(result => {
-                    // Traiter les données
-                    console.log(result);
+    <!-- meilleur film -->
+    fetch('http://localhost:8000/api/v1/titles?page_size=1&sort_by=-imdb_score')
+        .then(response => {
+            // Vérifier si la requête a réussi (statut 200 OK)
+            if (!response.ok) {
+                throw new Error('La requête a échoué');
+            }
+            // Parse la réponse en JSON
+            return response.json();
+        })
+        .then(result => {
+            best = result.results[0];
 
-                    var temp = "";
-          result.results.forEach((itemData) => {
+         fetch('http://localhost:8000/api/v1/titles/' + best.id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('La requête a échoué');
+                }
+                return response.json();
+            })
+            .then(result => {
+                 var temp ="<img class='feature__image' src=' " + result.image_url + "' onclick='toggleModal(" + result.id + ")'>";
 
-            temp +="";
-            temp += "<img class='best_movie_image' width='150%' height='150%' src=' " + itemData.image_url + "'></>";
-            temp +"";
-          });
-          document.getElementById('data0').innerHTML = temp;
-                })
-                .catch(error => {
-                    // Gérer les erreurs
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
-            <!-- requette 7 meilleurs -->
-            fetch('http://localhost:8000/api/v1/titles?page_size=7&sort_by=-imdb_score')
-                .then(response => {
-                    // Vérifier si la requête a réussi (statut 200 OK)
-                    if (!response.ok) {
-                        throw new Error('La requête a échoué');
-                    }
-                    // Parse la réponse en JSON
-                    return response.json();
-                })
-                .then(result => {
-                    // Traiter les données
-                    console.log(result);
+              var title = "<p>" + result.title  +"</p>";
+    var last = "<a class='play_button'>Play</a>" +
+        "<p class='summaryBestMovie'>" +result.description +"</p>"
+            document.getElementById('data0').innerHTML = temp;
+            document.getElementById('data01').innerHTML += title + last;
+            }) .catch(error => {
+            console.error('Erreur lors de la récupération des données:', error);
+        });
+        })
+        .catch(error => {
+            // Gérer les erreurs
+            console.error('Erreur lors de la récupération des données:', error);
+        });
+    <!-- requette 7 meilleurs -->
+    fetch('http://localhost:8000/api/v1/titles?page_size=7&sort_by=-imdb_score')
+        .then(response => {
+            // Vérifier si la requête a réussi (statut 200 OK)
+            if (!response.ok) {
+                throw new Error('La requête a échoué');
+            }
+            // Parse la réponse en JSON
+            return response.json();
+        })
+        .then(result => {
+            // Traiter les données
+            console.log(result);
 
-                    var temp = "";
-          result.results.forEach((itemData) => {
+            var temp = "";
+            result.results.forEach((itemData) => {
 
-            temp += "<img class='imag' style='cursor: pointer' onclick='toggleModal(" + itemData.id +")' src=' " + itemData.image_url + "'>";
-            temp +"";
-          });
-          document.getElementById('carousel').innerHTML =temp;
-                })
-                .catch(error => {
-                    // Gérer les erreurs
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
-         <!-- requette category musical -->
-            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=Musical&sort_by=-imdb_score')
-                .then(response => {
-                    // Vérifier si la requête a réussi (statut 200 OK)
-                    if (!response.ok) {
-                        throw new Error('La requête a échoué');
-                    }
-                    // Parse la réponse en JSON
-                    return response.json();
-                })
-                .then(result => {
-                    // Traiter les données
-                    console.log(result);
+                temp += "<img class='imag' style='cursor: pointer' onclick='toggleModal(" + itemData.id + ")' src=' " + itemData.image_url + "'>";
+                temp + "";
+            });
+            document.getElementById('carousel').innerHTML = temp;
+        })
+        .catch(error => {
+            // Gérer les erreurs
+            console.error('Erreur lors de la récupération des données:', error);
+        });
+    <!-- requette category musical -->
+    fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=Musical&sort_by=-imdb_score')
+        .then(response => {
+            // Vérifier si la requête a réussi (statut 200 OK)
+            if (!response.ok) {
+                throw new Error('La requête a échoué');
+            }
+            // Parse la réponse en JSON
+            return response.json();
+        })
+        .then(result => {
+            // Traiter les données
+            console.log(result);
 
-                    var temp = "";
-          result.results.forEach((itemData) => {
+            var temp = "";
+            result.results.forEach((itemData) => {
 
-            temp +="";
-            temp += "<img class='imag' src=' " + itemData.image_url + "'>";
-            temp +"";
-          });
-          document.getElementById('data1').innerHTML = temp;
-                })
-                .catch(error => {
-                    // Gérer les erreurs
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
+                temp += "";
+                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp + "";
+            });
+            document.getElementById('data1').innerHTML = temp;
+        })
+        .catch(error => {
+            // Gérer les erreurs
+            console.error('Erreur lors de la récupération des données:', error);
+        });
 
-          <!-- requette category comedy -->
-            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=comedy&sort_by=-imdb_score')
-                .then(response => {
-                    // Vérifier si la requête a réussi (statut 200 OK)
-                    if (!response.ok) {
-                        throw new Error('La requête a échoué');
-                    }
-                    // Parse la réponse en JSON
-                    return response.json();
-                })
-                .then(result => {
-                    // Traiter les données
-                    console.log(result);
+    <!-- requette category comedy -->
+    fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=comedy&sort_by=-imdb_score')
+        .then(response => {
+            // Vérifier si la requête a réussi (statut 200 OK)
+            if (!response.ok) {
+                throw new Error('La requête a échoué');
+            }
+            // Parse la réponse en JSON
+            return response.json();
+        })
+        .then(result => {
+            // Traiter les données
+            console.log(result);
 
-                    var temp = "";
-          result.results.forEach((itemData) => {
+            var temp = "";
+            result.results.forEach((itemData) => {
 
-            temp +="";
-            temp += "<img class='imag' src=' " + itemData.image_url + "'>";
-            temp +"";
-          });
-          document.getElementById('data2').innerHTML = temp;
-                })
-                .catch(error => {
-                    // Gérer les erreurs
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
+                temp += "";
+                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp + "";
+            });
+            document.getElementById('data2').innerHTML = temp;
+        })
+        .catch(error => {
+            // Gérer les erreurs
+            console.error('Erreur lors de la récupération des données:', error);
+        });
 
-           <!-- requette category drama -->
-            fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=drama&sort_by=-imdb_score')
-                .then(response => {
-                    // Vérifier si la requête a réussi (statut 200 OK)
-                    if (!response.ok) {
-                        throw new Error('La requête a échoué');
-                    }
-                    // Parse la réponse en JSON
-                    return response.json();
-                })
-                .then(result => {
-                    // Traiter les données
-                    console.log(result);
+    <!-- requette category drama -->
+    fetch('http://localhost:8000/api/v1/titles?page_size=7&genre_contains=drama&sort_by=-imdb_score')
+        .then(response => {
+            // Vérifier si la requête a réussi (statut 200 OK)
+            if (!response.ok) {
+                throw new Error('La requête a échoué');
+            }
+            // Parse la réponse en JSON
+            return response.json();
+        })
+        .then(result => {
+            // Traiter les données
+            console.log(result);
 
-                    var temp = "";
-          result.results.forEach((itemData) => {
+            var temp = "";
+            result.results.forEach((itemData) => {
 
-            temp +="";
-            temp += "<img class='imag' src=' " + itemData.image_url + "'>";
-            temp +"";
-          });
-          document.getElementById('data3').innerHTML = temp;
-                })
-                .catch(error => {
-                    // Gérer les erreurs
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
+                temp += "";
+                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp + "";
+            });
+            document.getElementById('data3').innerHTML = temp;
+        })
+        .catch(error => {
+            // Gérer les erreurs
+            console.error('Erreur lors de la récupération des données:', error);
+        });
 
-        }
+}
+
 var isDragStart = false, isDragging = false, prevPageX, prevScrollLeft, positionDiff;
-        var carousel = document.querySelector(".carousel");
+var carousel = document.querySelector(".carousel");
 
 
 function toggleModal(id) {
@@ -154,7 +166,7 @@ function toggleModal(id) {
             .then(result => {
                 let infos = "";
                 infos += "<img width='150px' height='150px' src=' " + result.image_url + "'>";
-                let titleText = "<h1>Title : " + result.title + "</h1>";
+                let titleText = "<h1>Titre : " + result.title + "</h1>";
                 document.getElementById('modal-header').innerHTML = titleText;
                 infos += "<p> Genre : ";
                 for (var i = 0; i < result.genres.length; i++) {
@@ -192,24 +204,20 @@ function toggleModal(id) {
             });
 
     }
-  if(modal.classList.contains("modal-show")) {
-    modal.classList.add("modal-hide");
-    setTimeout(() => {
-      document.body.style.overflow = "initial";
-      modal.classList.remove("modal-show", "modal-hide");
-      modal.style.display = "none";
-    }, 200);
-  }
-  else {
-    document.body.style.overflow = "hidden";
-    modal.style.display = "flex";
-    modal.classList.add("modal-show");
-  }
+    if (modal.classList.contains("modal-show")) {
+        modal.classList.add("modal-hide");
+        setTimeout(() => {
+            document.body.style.overflow = "initial";
+            modal.classList.remove("modal-show", "modal-hide");
+            modal.style.display = "none";
+        }, 200);
+    } else {
+        document.body.style.overflow = "hidden";
+        modal.style.display = "flex";
+        modal.classList.add("modal-show");
+    }
 
 }
-
-
-
 
 
 const showHideIcons = () => {
@@ -220,29 +228,30 @@ const showHideIcons = () => {
     arrowIcons[0].style.display = carr.scrollLeft == 0 ? "none" : "block";
     arrowIcons[1].style.display = carr.scrollLeft == scrollWidth ? "none" : "block";
 }
- function moveLeft(iconId) {
-        let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
-        // if clicked icon is left, reduce width value from the carousel scroll left else add to it
-        document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
-        setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
-    }
 
-     function moveRight(iconId) {
-        let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
-        // if clicked icon is left, reduce width value from the carousel scroll left else add to it
-        document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
-        setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
-    }
+function moveLeft(iconId) {
+    let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
+    // if clicked icon is left, reduce width value from the carousel scroll left else add to it
+    document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
+    setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
+}
+
+function moveRight(iconId) {
+    let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
+    // if clicked icon is left, reduce width value from the carousel scroll left else add to it
+    document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
+    setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
+}
 
 const autoSlide = () => {
     const crr = document.getElementById('carousel');
     // if there is no image left to scroll then return from here
-    if(crr.scrollLeft - (crr.scrollWidth - crr.clientWidth) > -1 || crr.scrollLeft <= 0) return;
+    if (crr.scrollLeft - (crr.scrollWidth - crr.clientWidth) > -1 || crr.scrollLeft <= 0) return;
     positionDiff = Math.abs(positionDiff); // making positionDiff value to positive
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14;
     // getting difference value that needs to add or reduce from carousel left to take middle img center
     let valDifference = firstImgWidth - positionDiff;
-    if(crr.scrollLeft > prevScrollLeft) { // if user is scrolling to the right
+    if (crr.scrollLeft > prevScrollLeft) { // if user is scrolling to the right
         return crr.scrollLeft += positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
     }
     // if user is scrolling to the left
@@ -256,7 +265,7 @@ const dragStart = (e) => {
 }
 const dragging = (e) => {
     // scrolling images/carousel to left according to mouse pointer
-    if(!isDragStart) return;
+    if (!isDragStart) return;
     e.preventDefault();
     isDragging = true;
     document.getElementById('carousel').classList.add("dragging");
@@ -267,10 +276,10 @@ const dragging = (e) => {
 const dragStop = () => {
     isDragStart = false;
     document.getElementById('carousel').classList.remove("dragging");
-    if(!isDragging) return;
+    if (!isDragging) return;
     isDragging = false;
     autoSlide();
 }
 
- document.addEventListener("mousemove", dragging);
- document.addEventListener("mouseup", dragStop);
+document.addEventListener("mousemove", dragging);
+document.addEventListener("mouseup", dragStop);

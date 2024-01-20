@@ -3,30 +3,42 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles.css">
+     <link rel="stylesheet" href="./netflix-style.css" />
     <script type="text/javascript" src="./script-ajax.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body onload="callApi()">
+ <section class="LandingPG" id="home" >
+    <header>
+      <a href="#" class="logo" >JustStreamIt</a>
+      <ul class="nav">
+        <li><a href="#" style="color: red;">Acceuil</a></li>
+        <li><a href="#" >Catégories</a></li>
+      </ul>
+    </header>
+<div id="best_movie">
+ <div class="best_movie_title" id="data01">
 
+      </div>
+</div>
+   <section class="features__container">
+
+          <div class="feature__image__container" id="data0">
+
+            </div>
+
+   </section>
+  </section>
 <div>
-
     <table class="textAlignCenter">
 
         <tbody id="data">
-        <tr>
-        <div>
-                <div id="data0">
-
-                </div>
-
-            </div>
-        </tr>
 
         <tr>
-
+<h>Films le mieux notés</h>
             <div class="wrapper">
-                <i id="left" class="fa-solid fa-angle-left" onclick="moveLeft('left')"></i>
+                <i id="left" class="fa-solid fa-angle-left" onclick="moveLeft('left', 0)"></i>
                 <div class="carousel" id="carousel" onmousedown="dragStart(event)">
 
                 </div>
@@ -35,17 +47,19 @@
             </div>
         </tr>
           <tr>
+              <h>Musical</h>
             <div class="wrapper">
-                <i class="fa-solid fa-angle-left" ></i>
-                <div class="carousel" id="data1" >
+                <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 1)"></i>
+                <div class="carousel" id="data1" onmousedown="dragStart(event, 1)" >
 
                 </div>
-                <i class="fa-solid fa-angle-right"></i>
+                <i class="fa-solid fa-angle-right" onclick="moveRight('right', 1)"></i>
 
             </div>
 
         </tr>
         <tr>
+            <h>Comedy</h>
             <div class="wrapper">
                 <i class="fa-solid fa-angle-left" ></i>
                 <div class="carousel" id="data2" >
@@ -57,6 +71,7 @@
 
         </tr>
         <tr>
+            <h>Drama</h>
             <div class="wrapper">
                 <i class="fa-solid fa-angle-left" ></i>
                 <div class="carousel" id="data3" >
