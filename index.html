@@ -31,18 +31,18 @@
    </section>
   </section>
 <div>
-    <table class="textAlignCenter">
+    <table class="textAlignCenter" style="align-self: center">
 
         <tbody id="data">
 
         <tr>
 <h>Films le mieux notés</h>
-            <div class="wrapper">
+            <div class="wrapper" >
                 <i id="left" class="fa-solid fa-angle-left" onclick="moveLeft('left', 0)"></i>
                 <div class="carousel" id="carousel" onmousedown="dragStart(event)">
 
                 </div>
-                <i id="right" class="fa-solid fa-angle-right" onclick="moveRight('right')"></i>
+                <i id="right" class="fa-solid fa-angle-right" onclick="moveRight('right', 0)"></i>
 
             </div>
         </tr>
@@ -50,7 +50,7 @@
               <h>Musical</h>
             <div class="wrapper">
                 <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 1)"></i>
-                <div class="carousel" id="data1" onmousedown="dragStart(event, 1)" >
+                <div class="carousel" id="data1" onmousedown="dragStart(event)" >
 
                 </div>
                 <i class="fa-solid fa-angle-right" onclick="moveRight('right', 1)"></i>
@@ -61,11 +61,11 @@
         <tr>
             <h>Comedy</h>
             <div class="wrapper">
-                <i class="fa-solid fa-angle-left" ></i>
+                <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 2)"></i>
                 <div class="carousel" id="data2" >
 
                 </div>
-                <i class="fa-solid fa-angle-right"></i>
+                <i class="fa-solid fa-angle-right" onclick="moveRight('right', 2)"></i>
 
             </div>
 
@@ -73,11 +73,11 @@
         <tr>
             <h>Drama</h>
             <div class="wrapper">
-                <i class="fa-solid fa-angle-left" ></i>
+                <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 3)"></i>
                 <div class="carousel" id="data3" >
 
                 </div>
-                <i class="fa-solid fa-angle-right"></i>
+                <i class="fa-solid fa-angle-right" onclick="moveLeft('right', 3)"></i>
 
             </div>
 

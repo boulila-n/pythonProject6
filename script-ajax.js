@@ -81,7 +81,7 @@ function callApi() {
             result.results.forEach((itemData) => {
 
                 temp += "";
-                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
                 temp + "";
             });
             document.getElementById('data1').innerHTML = temp;
@@ -109,7 +109,7 @@ function callApi() {
             result.results.forEach((itemData) => {
 
                 temp += "";
-                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
                 temp + "";
             });
             document.getElementById('data2').innerHTML = temp;
@@ -137,7 +137,7 @@ function callApi() {
             result.results.forEach((itemData) => {
 
                 temp += "";
-                temp += "<img class='imag' src=' " + itemData.image_url + "'>";
+                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
                 temp + "";
             });
             document.getElementById('data3').innerHTML = temp;
@@ -165,7 +165,7 @@ function toggleModal(id) {
             })
             .then(result => {
                 let infos = "";
-                infos += "<img width='150px' height='150px' src=' " + result.image_url + "'>";
+                infos += "<img  width='350px' height='250px' src=' " + result.image_url + "'>";
                 let titleText = "<h1>Titre : " + result.title + "</h1>";
                 document.getElementById('modal-header').innerHTML = titleText;
                 infos += "<p> Genre : ";
@@ -220,8 +220,8 @@ function toggleModal(id) {
 }
 
 
-const showHideIcons = () => {
-    let arrowIcons = document.querySelectorAll(".wrapper i");
+const showHideIcons = (idx) => {
+    let arrowIcons = document.querySelectorAll(".wrapper")[idx].querySelectorAll("i");
     const carr = document.getElementById('carousel');
     // showing and hiding prev/next icon according to carousel scroll left value
     let scrollWidth = carr.scrollWidth - carr.clientWidth; // getting max scrollable width
@@ -229,18 +229,18 @@ const showHideIcons = () => {
     arrowIcons[1].style.display = carr.scrollLeft == scrollWidth ? "none" : "block";
 }
 
-function moveLeft(iconId) {
+function moveLeft(iconId, idx) {
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
     // if clicked icon is left, reduce width value from the carousel scroll left else add to it
-    document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
-    setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
+    document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
+    //setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
 
-function moveRight(iconId) {
+function moveRight(iconId, idx) {
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
     // if clicked icon is left, reduce width value from the carousel scroll left else add to it
-    document.querySelector(".carousel").scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
-    setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
+    document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "right" ? +firstImgWidth : firstImgWidth;
+   //setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
 
 const autoSlide = () => {
@@ -271,7 +271,7 @@ const dragging = (e) => {
     document.getElementById('carousel').classList.add("dragging");
     positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
     document.getElementById('carousel').scrollLeft = prevScrollLeft - positionDiff;
-    showHideIcons();
+    //showHideIcons();
 }
 const dragStop = () => {
     isDragStart = false;
