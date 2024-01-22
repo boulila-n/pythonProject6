@@ -12,8 +12,9 @@ function callApi() {
             return response.json();
         })
         .then(result => {
+            // récuperer l'element d'index 0
             best = result.results[0];
-
+            // faire appel api avec l'id trouvé
          fetch('http://localhost:8000/api/v1/titles/' + best.id)
             .then(response => {
                 if (!response.ok) {
@@ -164,8 +165,8 @@ function toggleModal(id) {
                 return response.json();
             })
             .then(result => {
-                let infos = "";
-                infos += "<img  width='350px' height='250px' src=' " + result.image_url + "'>";
+                let infos = "<div class='modal-image'>";
+                infos += "<img  width='350px' height='250px' src=' " + result.image_url + "'></div>";
                 let titleText = "<h1>Titre : " + result.title + "</h1>";
                 document.getElementById('modal-header').innerHTML = titleText;
                 infos += "<p> Genre : ";
@@ -176,7 +177,9 @@ function toggleModal(id) {
                 infos += "<p>Date Sortie : " + result.date_published + "</p>";
                 infos += "<p>Rate : " + result.rated + "</p>";
                 infos += "<p>Score Imdb : " + result.imdb_score + "</p>";
-                infos += "<p> Réalisateurs : ";
+                 infos += "<p>Score Box Office : " + result.avg_vote + "</p>";
+                infos += "<p>Durée : " + result.duration + "</p></br></br></br>";
+                  infos += "<p> Réalisateurs : ";
                 for (var j = 0; j < result.writers.length; j++) {
                     infos += result.writers[j] + " , ";
                 }
@@ -186,15 +189,11 @@ function toggleModal(id) {
                     infos += result.actors[j] + " , ";
                 }
                 infos += "</p>";
-
-                infos += "<p>Durée : " + result.duration + "</p>";
-
                 infos += "<p> Pays : ";
                 for (var j = 0; j < result.countries.length; j++) {
                     infos += result.countries[j] + " , ";
                 }
                 infos += "</p>";
-                infos += "<p>Score Box Office : " + result.avg_vote + "</p>";
                 infos += "<p>Description : " + result.description + "</p>";
 
                 document.getElementById('infos').innerHTML = infos;
@@ -222,7 +221,7 @@ function toggleModal(id) {
 
 const showHideIcons = (idx) => {
     let arrowIcons = document.querySelectorAll(".wrapper")[idx].querySelectorAll("i");
-    const carr = document.getElementById('carousel');
+    const carr = document.querySelectorAll('.carousel')[idx];
     // showing and hiding prev/next icon according to carousel scroll left value
     let scrollWidth = carr.scrollWidth - carr.clientWidth; // getting max scrollable width
     arrowIcons[0].style.display = carr.scrollLeft == 0 ? "none" : "block";
@@ -233,14 +232,14 @@ function moveLeft(iconId, idx) {
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
     // if clicked icon is left, reduce width value from the carousel scroll left else add to it
     document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
-    //setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
+    setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
 
 function moveRight(iconId, idx) {
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
     // if clicked icon is left, reduce width value from the carousel scroll left else add to it
     document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "right" ? +firstImgWidth : firstImgWidth;
-   //setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
+   setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
 
 const autoSlide = () => {

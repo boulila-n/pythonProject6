@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles.css">
-     <link rel="stylesheet" href="./netflix-style.css" />
     <script type="text/javascript" src="./script-ajax.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -62,7 +61,7 @@
             <h>Comedy</h>
             <div class="wrapper">
                 <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 2)"></i>
-                <div class="carousel" id="data2" >
+                <div class="carousel" id="data2" onmousedown="dragStart(event)" >
 
                 </div>
                 <i class="fa-solid fa-angle-right" onclick="moveRight('right', 2)"></i>
@@ -74,7 +73,7 @@
             <h>Drama</h>
             <div class="wrapper">
                 <i class="fa-solid fa-angle-left" onclick="moveLeft('left', 3)"></i>
-                <div class="carousel" id="data3" >
+                <div class="carousel" id="data3" onmousedown="dragStart(event)" >
 
                 </div>
                 <i class="fa-solid fa-angle-right" onclick="moveLeft('right', 3)"></i>
