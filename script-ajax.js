@@ -178,7 +178,7 @@ function toggleModal(id) {
                 infos += "<p>Rate : " + result.rated + "</p>";
                 infos += "<p>Score Imdb : " + result.imdb_score + "</p>";
                  infos += "<p>Score Box Office : " + result.avg_vote + "</p>";
-                infos += "<p>Durée : " + result.duration + "</p></br></br></br>";
+                infos += "<p>Durée : " + result.duration + "</p></br></br></br></br>";
                   infos += "<p> Réalisateurs : ";
                 for (var j = 0; j < result.writers.length; j++) {
                     infos += result.writers[j] + " , ";
@@ -228,57 +228,9 @@ const showHideIcons = (idx) => {
     arrowIcons[1].style.display = carr.scrollLeft == scrollWidth ? "none" : "block";
 }
 
-function moveLeft(iconId, idx) {
+function moveSroll(iconId, idx) {
     let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
     // if clicked icon is left, reduce width value from the carousel scroll left else add to it
     document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
     setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
-
-function moveRight(iconId, idx) {
-    let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14; // getting first img width & adding 14 margin value
-    // if clicked icon is left, reduce width value from the carousel scroll left else add to it
-    document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "right" ? +firstImgWidth : firstImgWidth;
-   setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
-}
-
-const autoSlide = () => {
-    const crr = document.getElementById('carousel');
-    // if there is no image left to scroll then return from here
-    if (crr.scrollLeft - (crr.scrollWidth - crr.clientWidth) > -1 || crr.scrollLeft <= 0) return;
-    positionDiff = Math.abs(positionDiff); // making positionDiff value to positive
-    let firstImgWidth = document.querySelectorAll(".imag")[0].clientWidth + 14;
-    // getting difference value that needs to add or reduce from carousel left to take middle img center
-    let valDifference = firstImgWidth - positionDiff;
-    if (crr.scrollLeft > prevScrollLeft) { // if user is scrolling to the right
-        return crr.scrollLeft += positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
-    }
-    // if user is scrolling to the left
-    crr.scrollLeft -= positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
-}
-const dragStart = (e) => {
-    // updatating global variables value on mouse down event
-    isDragStart = true;
-    prevPageX = e.pageX || e.touches[0].pageX;
-    prevScrollLeft = document.getElementById('carousel').scrollLeft;
-}
-const dragging = (e) => {
-    // scrolling images/carousel to left according to mouse pointer
-    if (!isDragStart) return;
-    e.preventDefault();
-    isDragging = true;
-    document.getElementById('carousel').classList.add("dragging");
-    positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
-    document.getElementById('carousel').scrollLeft = prevScrollLeft - positionDiff;
-    //showHideIcons();
-}
-const dragStop = () => {
-    isDragStart = false;
-    document.getElementById('carousel').classList.remove("dragging");
-    if (!isDragging) return;
-    isDragging = false;
-    autoSlide();
-}
-
-document.addEventListener("mousemove", dragging);
-document.addEventListener("mouseup", dragStop);
