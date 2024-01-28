@@ -1,7 +1,6 @@
-var best = null;
-
 function callApi() {
     <!-- meilleur film -->
+
     fetch('http://localhost:8000/api/v1/titles?page_size=1&sort_by=-imdb_score')
         .then(response => {
             // Vérifier si la requête a réussi (statut 200 OK)
@@ -13,7 +12,7 @@ function callApi() {
         })
         .then(result => {
             // récuperer l'element d'index 0
-            best = result.results[0];
+            let best = result.results[0];
             // faire appel api avec l'id trouvé
          fetch('http://localhost:8000/api/v1/titles/' + best.id)
             .then(response => {
@@ -23,12 +22,14 @@ function callApi() {
                 return response.json();
             })
             .then(result => {
-                 var temp ="<img class='feature__image' src=' " + result.image_url + "' onclick='toggleModal(" + result.id + ")'>";
-
+                  let newImg = document.createElement('img');
+                    newImg.src = result.image_url;
+                    newImg.classList += "feature__image";
+                    newImg.addEventListener("click", () => toggleModal(result.id));
               var title = "<p>" + result.title  +"</p>";
     var last = "<a class='play_button'>Play</a>" +
         "<p class='summaryBestMovie'>" +result.description +"</p>"
-            document.getElementById('data0').innerHTML = temp;
+            document.getElementById('data0').append(newImg);
             document.getElementById('data01').innerHTML += title + last;
             }) .catch(error => {
             console.error('Erreur lors de la récupération des données:', error);
@@ -38,6 +39,7 @@ function callApi() {
             // Gérer les erreurs
             console.error('Erreur lors de la récupération des données:', error);
         });
+
     <!-- requette 7 meilleurs -->
     fetch('http://localhost:8000/api/v1/titles?page_size=7&sort_by=-imdb_score')
         .then(response => {
@@ -52,13 +54,15 @@ function callApi() {
             // Traiter les données
             console.log(result);
 
-            var temp = "";
+            var temp = document.createElement('div');;
             result.results.forEach((itemData) => {
-
-                temp += "<img class='imag' style='cursor: pointer' onclick='toggleModal(" + itemData.id + ")' src=' " + itemData.image_url + "'>";
-                temp + "";
+                 let newImg = document.createElement('img');
+                    newImg.src = itemData.image_url;
+                    newImg.classList += "imag";
+                    newImg.addEventListener("click", () => toggleModal(itemData.id));
+                    temp.append(newImg);
             });
-            document.getElementById('carousel').innerHTML = temp;
+            document.getElementById('carousel').append(temp);
         })
         .catch(error => {
             // Gérer les erreurs
@@ -78,14 +82,16 @@ function callApi() {
             // Traiter les données
             console.log(result);
 
-            var temp = "";
-            result.results.forEach((itemData) => {
 
-                temp += "";
-                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
-                temp + "";
+            var temp = document.createElement('div');;
+            result.results.forEach((itemData) => {
+                 let newImg = document.createElement('img');
+                    newImg.src = itemData.image_url;
+                    newImg.classList += "imag";
+                    newImg.addEventListener("click", () => toggleModal(itemData.id));
+                    temp.append(newImg);
             });
-            document.getElementById('data1').innerHTML = temp;
+            document.getElementById('data1').append(temp);
         })
         .catch(error => {
             // Gérer les erreurs
@@ -106,14 +112,16 @@ function callApi() {
             // Traiter les données
             console.log(result);
 
-            var temp = "";
-            result.results.forEach((itemData) => {
 
-                temp += "";
-                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
-                temp + "";
+            var temp = document.createElement('div');;
+            result.results.forEach((itemData) => {
+                 let newImg = document.createElement('img');
+                    newImg.src = itemData.image_url;
+                    newImg.classList += "imag";
+                    newImg.addEventListener("click", () => toggleModal(itemData.id));
+                    temp.append(newImg);
             });
-            document.getElementById('data2').innerHTML = temp;
+            document.getElementById('data2').append(temp);
         })
         .catch(error => {
             // Gérer les erreurs
@@ -134,14 +142,16 @@ function callApi() {
             // Traiter les données
             console.log(result);
 
-            var temp = "";
-            result.results.forEach((itemData) => {
 
-                temp += "";
-                temp += "<img class='imag' onclick='toggleModal(" + itemData.id + ")'  src=' " + itemData.image_url + "'>";
-                temp + "";
+            var temp = document.createElement('div');;
+            result.results.forEach((itemData) => {
+                 let newImg = document.createElement('img');
+                    newImg.src = itemData.image_url;
+                    newImg.classList += "imag";
+                    newImg.addEventListener("click", () => toggleModal(itemData.id));
+                    temp.append(newImg);
             });
-            document.getElementById('data3').innerHTML = temp;
+            document.getElementById('data3').append(temp);
         })
         .catch(error => {
             // Gérer les erreurs
