@@ -1,1 +1,3 @@
+
+initEvenements();
 callApi();

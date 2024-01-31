@@ -244,3 +244,18 @@ function moveSroll(iconId, idx) {
     document.querySelectorAll(".carousel")[idx].scrollLeft += iconId == "left" ? -firstImgWidth : firstImgWidth;
     setTimeout(() => showHideIcons(idx), 60); // calling showHideIcons after 60ms
 }
+
+function initEvenements() {
+
+ leftbtns = document.querySelectorAll('.fa-angle-left');
+ rightbtns = document.querySelectorAll('.fa-angle-right');
+
+ for(let i=0; i<leftbtns.length; i++) {
+     leftbtns[i].addEventListener("click", () => moveSroll("left", i));
+     rightbtns[i].addEventListener("click", () => moveSroll("right", i));
+
+ }
+
+   document.getElementById('close_modal').addEventListener("click", () => toggleModal(0));
+
+}
